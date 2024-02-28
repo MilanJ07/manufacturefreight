@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using Utilities.Constants;
 using Utilities.Contract;
 
 namespace Api.Controllers
@@ -13,6 +14,11 @@ namespace Api.Controllers
             if (responseWrappers.HasMessages)
             {
                 statusCode = StatusCodes.Status400BadRequest;
+
+                if(responseWrappers.Messages.Exists(m => m.Code == Codes.EntityNotFound))
+                {
+                    statusCode = StatusCodes.Status404NotFound;
+                }
 
                 return this.StatusCode(
                     statusCode,
