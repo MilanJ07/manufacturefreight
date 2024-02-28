@@ -23,7 +23,11 @@ public static class Program
 
             Log.Information("Hosting Environment: {Environment}", builder.Environment.EnvironmentName);
 
-            builder.Services.AddAuthorization();
+            builder.Services.AddVersionedApiExplorer(o =>
+            {
+                o.GroupNameFormat = "'v'VVV";
+                o.SubstituteApiVersionInUrl = true;
+            });
 
             builder.Services.AddControllers();
 
@@ -51,26 +55,6 @@ public static class Program
                     Title = "Manufacture API",
                     Description = "Manufacture Freight API"
                 });
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Name = "Authorization",
-                    Description = "Bearer Authentication with JWT Token",
-                    Type = SecuritySchemeType.Http
-                });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement {
-        {
-            new OpenApiSecurityScheme {
-                Reference = new OpenApiReference {
-                    Id = "Bearer",
-                        Type = ReferenceType.SecurityScheme
-                }
-            },
-            new List < string > ()
-        }
-    });
             });
 
             builder.Services.AddSwaggerGen();
@@ -84,8 +68,6 @@ public static class Program
             WebApplication? app = builder.Build();
 
             app.UseHttpsRedirection();
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
             {
@@ -93,7 +75,7 @@ public static class Program
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Manufacture API"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
 
             app.MapHealthChecks(builder.Configuration["HealthCheckUrl"]).AllowAnonymous();
 
