@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Interfaces;
+using DataAccess.Domain.Masters;
 using Models.ResponseModels;
 using Utilities.Contract;
 using Utilities.Implementation;

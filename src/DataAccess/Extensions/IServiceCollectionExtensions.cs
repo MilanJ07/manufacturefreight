@@ -8,7 +8,7 @@ namespace ManufactureFreight.BusinessLogic.Extensions
     {
         public static IServiceCollection AddBusinessLogicDependencies(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
         {
-
+            //services.Configure<ConnectionString>(configuration.GetSection("ConnectionString"));
             //services.AddScoped<ISampleService, SampleService>();
 
             return services;
