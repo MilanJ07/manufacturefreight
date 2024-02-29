@@ -1,6 +1,8 @@
-﻿namespace DataAccess.Domain
+﻿using DataAccess.Interfaces;
+
+namespace DataAccess.Domain
 {
-    public class EntityBase
+    public abstract class EntityBase : IEntity
     {
         public Guid Id { get; set; }
         public Guid? CreatedBy { get; set; }
