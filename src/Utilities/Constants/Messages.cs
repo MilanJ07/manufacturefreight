@@ -9,6 +9,14 @@ namespace Utilities.Constants
 
         public static ErrorDetail EntityNotFound => new ErrorDetail(Codes.EntityNotFound, Category.Error, Descriptions.EntityNotFound, "plant");
 
+        public static ErrorDetail HasInvalidName
+        {
+            get
+            {
+                return new(Codes.DataValidationError, Category.Error, Descriptions.EntityNotFound, "Name");
+            }
+        }
+
         public static ErrorDetail GetErrorDetail(string code, string description, string element, Category category = Category.Error)
         {
             return new ErrorDetail(code, category, description, element);
