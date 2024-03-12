@@ -1,14 +1,13 @@
 ﻿using BusinessLogic.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models.ResponseModels;
+using Models.RequestModels.Plant;
+using Models.ResponseModels.Plant;
 using Utilities.Contract;
-using System;
 
 namespace Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]/")]
+    [Route("api/v{version:apiVersion}/plant/")]
     [ApiController]
     public class PlantController : CssControllerBase
     {
@@ -18,10 +17,17 @@ namespace Api.Controllers.V1
             this.plantService = plantService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Get()
+        [HttpPost("{id}")]
+        public async Task<ActionResult> Get(decimal id)
         {
-            IResponseWrapper<PlantResponseModel> result = await this.plantService.GetAllPlant();
+            IResponseWrapper<PlantSearchResponseModel> result = await this.plantService.GetPlantAsync(id);
+            return this.HandleResponse(result);
+        }
+
+        [HttpPost("search")]
+        public async Task<ActionResult> Search(PlantSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
+        {
+            IResponseWrapper<PlantSearchResponse> result = await this.plantService.SearchPlantAsync(requestModel, offset, count);
             return this.HandleResponse(result);
         }
     }

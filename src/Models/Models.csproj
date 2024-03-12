@@ -9,8 +9,6 @@
   <ItemGroup>
     <Folder Include="Configuration\" />
     <Folder Include="ModelValidators\" />
-    <Folder Include="ResponseModels\" />
-    <Folder Include="RequestModels\" />
   </ItemGroup>
 
   <ItemGroup>

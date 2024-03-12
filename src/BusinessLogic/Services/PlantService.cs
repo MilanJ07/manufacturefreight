@@ -1,9 +1,11 @@
-﻿using BusinessLogic.Interfaces;
+﻿using AutoMapper;
+using BusinessLogic.Interfaces;
 using BusinessLogic.Rules.Enums;
 using BusinessLogic.Rules.Master.Plant;
-using DataAccess.Domain.Masters;
+using DataAccess.Domain.Masters.Plant;
 using DataAccess.Interfaces;
-using Models.ResponseModels;
+using Models.RequestModels.Plant;
+using Models.ResponseModels.Plant;
 using Utilities.Constants;
 using Utilities.Contract;
 using Utilities.Implementation;
@@ -14,24 +16,43 @@ namespace BusinessLogic.Services
     public class PlantService : IPlantService
     {
         private readonly IPlantRepository plantRepository;
-        public PlantService(IPlantRepository plantRepository)
+        private readonly IMapper mapper;
+        public PlantService(
+            IPlantRepository plantRepository,
+            IMapper mapper)
         {
             this.plantRepository = plantRepository;
+            this.mapper = mapper;
         }
 
-        public async Task<IResponseWrapper<PlantResponseModel>> GetAllPlant()
+        public async Task<IResponseWrapper<PlantSearchResponseModel>> GetPlantAsync(decimal id)
         {
-            var wrapper = new ResponseWrapper<PlantResponseModel>();
+            var wrapper = new ResponseWrapper<PlantSearchResponseModel>();
+            PlantEntity entity = await this.plantRepository.FindAsync(id);
 
-            var plantEntity = new PlantEntity();
-            //plantEntity.Name = "Test";
-
-            // Rule is only applied if there is any complexity in request model
-            var rules = new PlantCreateRules(this.plantRepository, plantEntity);
-            rules.RunRules();
-            foreach(var result in rules.Results)
+            if (entity == null)
             {
-                if(result.ResultCode == RuleResultType.Fail && result.Exception != null)
+                wrapper.Messages.Add(Messages.EntityNotFound.ToDetailModel(id.ToString()));
+            }
+
+            PlantSearchResponseModel response = this.mapper.Map<PlantSearchResponseModel>(entity);
+
+            wrapper.Response = response;
+
+            return wrapper;
+        }
+
+        public async Task<IResponseWrapper<PlantSearchResponse>> SearchPlantAsync(PlantSearchRequestModel requestModel, string? offset, string count)
+        {
+            var wrapper = new ResponseWrapper<PlantSearchResponse>();
+
+            PlantSearchRequestEntity? request = this.mapper.Map<PlantSearchRequestEntity>(requestModel);
+
+            /*var rules = new PlantSearchRules(request, offset, count);
+            rules.RunRules();
+            foreach (var result in rules.Results)
+            {
+                if (result.ResultCode == RuleResultType.Fail && result.Exception != null)
                 {
                     wrapper.Messages.Add(Messages.GetErrorDetail(
                         result.Exception.Code,
@@ -42,21 +63,16 @@ namespace BusinessLogic.Services
                 }
             }
 
-            if(rules.Result == RuleResultType.Fail)
+            if (rules.Result == RuleResultType.Fail)
             {
-                wrapper.Messages.Add(Messages.EntityNotFound.ToDetailModel("12345"));
                 return wrapper;
-            }
+            }*/
 
-            //wrapper.Messages.Add(Messages.EntityNotFound.ToDetailModel("12345"));
-            //return wrapper;
+            PlantSearchResponseEntity entityResponse = await this.plantRepository.SearchPlantAsync(request);
+            PlantSearchResponse plantSearchResponse = this.mapper.Map<PlantSearchResponse>(entityResponse);
 
-            var response = new PlantResponseModel()
-            {
-                PlantId = "1001"
-            };
+            wrapper.Response = plantSearchResponse;
 
-            wrapper.Response = response;
             return wrapper;
         }
     }

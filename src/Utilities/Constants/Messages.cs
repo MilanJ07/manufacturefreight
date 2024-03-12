@@ -17,6 +17,22 @@ namespace Utilities.Constants
             }
         }
 
+        public static ErrorDetail InvalidCount
+        {
+            get
+            {
+                return new(Codes.InvalidCount, Category.Warning, Descriptions.InvalidCount, "count");
+            }
+        }
+
+        public static ErrorDetail InvalidOffset
+        {
+            get
+            {
+                return new(Codes.InvalidOffset, Category.Warning, Descriptions.InvalidOffset, "offset");
+            }
+        }
+
         public static ErrorDetail GetErrorDetail(string code, string description, string element, Category category = Category.Error)
         {
             return new ErrorDetail(code, category, description, element);
@@ -34,6 +50,8 @@ namespace Utilities.Constants
         private readonly struct Descriptions
         {
             public const string EntityNotFound = "Requested record was not found or inaccessible";
+            public const string InvalidCount = "Invalid or missing count, using default value of 50";
+            public const string InvalidOffset = "Invalid or missing count, using default value of 0";
         }
     }
 }

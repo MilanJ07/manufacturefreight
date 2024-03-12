@@ -13,11 +13,14 @@ namespace Api.Controllers
         {
             if (responseWrappers.HasMessages)
             {
-                statusCode = StatusCodes.Status400BadRequest;
-
-                if(responseWrappers.Messages.Exists(m => m.Code == Codes.EntityNotFound))
+                if (responseWrappers.HasErrors)
                 {
-                    statusCode = StatusCodes.Status404NotFound;
+                    statusCode = StatusCodes.Status400BadRequest;
+
+                    if (responseWrappers.Messages.Exists(m => m.Code == Codes.EntityNotFound))
+                    {
+                        statusCode = StatusCodes.Status404NotFound;
+                    }
                 }
 
                 return this.StatusCode(

@@ -2,10 +2,10 @@
 {
     public interface IEntity
     {
-        Guid Id { get; set; }
-        Guid? CreatedBy { get; set; }
+        decimal Id { get; set; }
+        string? CreatedBy { get; set; }
         DateTime? CreatedOn { get; set; }
-        Guid? ModifiedBy { get; set; }
+        string? ModifiedBy { get; set; }
         DateTime? ModifiedOn { get; set; }
     }
 }
