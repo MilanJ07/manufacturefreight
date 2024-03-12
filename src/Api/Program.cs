@@ -81,6 +81,9 @@ public static class Program
 
             app.MapControllers();
             app.UseCors("corsapp");
+
+            builder.Configuration.AddXmlFile("web.config", optional: true, reloadOnChange: true);
+
             app.Run();
         }
         catch (Exception ex)

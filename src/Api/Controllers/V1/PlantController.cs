@@ -17,7 +17,7 @@ namespace Api.Controllers.V1
             this.plantService = plantService;
         }
 
-        [HttpPost("{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult> Get(decimal id)
         {
             IResponseWrapper<PlantSearchResponseModel> result = await this.plantService.GetPlantAsync(id);
