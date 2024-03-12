@@ -1,10 +1,10 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.Interfaces.Masters;
 using Microsoft.AspNetCore.Mvc;
-using Models.RequestModels.Plant;
-using Models.ResponseModels.Plant;
+using Models.RequestModels.Masters.Plant;
+using Models.ResponseModels.Masters.Plant;
 using Utilities.Contract;
 
-namespace Api.Controllers.V1
+namespace Api.Controllers.V1.Masters
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/plant/")]
@@ -20,15 +20,15 @@ namespace Api.Controllers.V1
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(decimal id)
         {
-            IResponseWrapper<PlantSearchResponseModel> result = await this.plantService.GetPlantAsync(id);
-            return this.HandleResponse(result);
+            IResponseWrapper<PlantSearchResponseModel> result = await plantService.GetPlantAsync(id);
+            return HandleResponse(result);
         }
 
         [HttpPost("search")]
         public async Task<ActionResult> Search(PlantSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {
-            IResponseWrapper<PlantSearchResponse> result = await this.plantService.SearchPlantAsync(requestModel, offset, count);
-            return this.HandleResponse(result);
+            IResponseWrapper<PlantSearchResponse> result = await plantService.SearchPlantAsync(requestModel, offset, count);
+            return HandleResponse(result);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DataAccess.Domain.Masters.Plant;
 
-namespace DataAccess.Interfaces
+namespace DataAccess.Interfaces.Masters
 {
     public interface IPlantRepository : IRepository<PlantEntity>
     {

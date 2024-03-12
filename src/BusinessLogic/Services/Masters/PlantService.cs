@@ -1,17 +1,19 @@
 ﻿using AutoMapper;
 using BusinessLogic.Interfaces;
+using BusinessLogic.Interfaces.Masters;
 using BusinessLogic.Rules.Enums;
 using BusinessLogic.Rules.Master.Plant;
 using DataAccess.Domain.Masters.Plant;
 using DataAccess.Interfaces;
-using Models.RequestModels.Plant;
-using Models.ResponseModels.Plant;
+using DataAccess.Interfaces.Masters;
+using Models.RequestModels.Masters.Plant;
+using Models.ResponseModels.Masters.Plant;
 using Utilities.Constants;
 using Utilities.Contract;
 using Utilities.Implementation;
 using Utilities.MessageStatus;
 
-namespace BusinessLogic.Services
+namespace BusinessLogic.Services.Masters
 {
     public class PlantService : IPlantService
     {
@@ -28,14 +30,14 @@ namespace BusinessLogic.Services
         public async Task<IResponseWrapper<PlantSearchResponseModel>> GetPlantAsync(decimal id)
         {
             var wrapper = new ResponseWrapper<PlantSearchResponseModel>();
-            PlantEntity entity = await this.plantRepository.FindAsync(id);
+            PlantEntity? plantEntity = await plantRepository.FindAsync(id);
 
-            if (entity == null)
+            if (plantEntity == null)
             {
                 wrapper.Messages.Add(Messages.EntityNotFound.ToDetailModel(id.ToString()));
             }
 
-            PlantSearchResponseModel response = this.mapper.Map<PlantSearchResponseModel>(entity);
+            PlantSearchResponseModel response = mapper.Map<PlantSearchResponseModel>(plantEntity);
 
             wrapper.Response = response;
 
@@ -46,7 +48,7 @@ namespace BusinessLogic.Services
         {
             var wrapper = new ResponseWrapper<PlantSearchResponse>();
 
-            PlantSearchRequestEntity? request = this.mapper.Map<PlantSearchRequestEntity>(requestModel);
+            PlantSearchRequestEntity? request = mapper.Map<PlantSearchRequestEntity>(requestModel);
 
             /*var rules = new PlantSearchRules(request, offset, count);
             rules.RunRules();
@@ -68,8 +70,8 @@ namespace BusinessLogic.Services
                 return wrapper;
             }*/
 
-            PlantSearchResponseEntity entityResponse = await this.plantRepository.SearchPlantAsync(request);
-            PlantSearchResponse plantSearchResponse = this.mapper.Map<PlantSearchResponse>(entityResponse);
+            PlantSearchResponseEntity entityResponse = await plantRepository.SearchPlantAsync(request);
+            PlantSearchResponse plantSearchResponse = mapper.Map<PlantSearchResponse>(entityResponse);
 
             wrapper.Response = plantSearchResponse;
 

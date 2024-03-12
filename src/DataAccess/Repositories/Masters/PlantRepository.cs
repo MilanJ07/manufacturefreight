@@ -1,7 +1,7 @@
 ﻿using DataAccess.Domain.Masters.Plant;
-using DataAccess.Interfaces;
+using DataAccess.Interfaces.Masters;
 
-namespace DataAccess.Repositories
+namespace DataAccess.Repositories.Masters
 {
     public class PlantRepository : IPlantRepository
     {

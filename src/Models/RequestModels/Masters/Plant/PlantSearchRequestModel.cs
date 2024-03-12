@@ -1,4 +1,4 @@
-﻿namespace Models.RequestModels.Plant
+﻿namespace Models.RequestModels.Masters.Plant
 {
     public class PlantSearchRequestModel
     {

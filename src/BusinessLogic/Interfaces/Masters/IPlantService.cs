@@ -1,8 +1,8 @@
-﻿using Models.RequestModels.Plant;
-using Models.ResponseModels.Plant;
+﻿using Models.RequestModels.Masters.Plant;
+using Models.ResponseModels.Masters.Plant;
 using Utilities.Contract;
 
-namespace BusinessLogic.Interfaces
+namespace BusinessLogic.Interfaces.Masters
 {
     public interface IPlantService
     {

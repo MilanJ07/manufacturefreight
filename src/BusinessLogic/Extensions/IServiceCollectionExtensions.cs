@@ -1,6 +1,6 @@
-﻿using BusinessLogic.Interfaces;
-using BusinessLogic.Mappings;
-using BusinessLogic.Services;
+﻿using BusinessLogic.Interfaces.Masters;
+using BusinessLogic.Mappings.Masters;
+using BusinessLogic.Services.Masters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

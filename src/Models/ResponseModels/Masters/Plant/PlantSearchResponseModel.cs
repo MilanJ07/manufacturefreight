@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Utilities.Contract;
 using Utilities.MessageStatus;
 
-namespace Models.ResponseModels.Plant
+namespace Models.ResponseModels.Masters.Plant
 {
     public class PlantSearchResponseModel : IResponseMessage
     {

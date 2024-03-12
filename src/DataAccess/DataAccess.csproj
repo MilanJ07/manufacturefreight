@@ -25,4 +25,9 @@
     <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\Transactions\" />
+    <Folder Include="Repositories\Transactions\" />
+  </ItemGroup>
+
 </Project>

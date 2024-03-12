@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\V1\Reports\" />
+    <Folder Include="Controllers\V1\Transactions\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
 
