@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using BusinessLogic.Interfaces;
 using BusinessLogic.Interfaces.Masters;
-using BusinessLogic.Rules.Enums;
-using BusinessLogic.Rules.Master.Plant;
 using DataAccess.Domain.Masters.Plant;
-using DataAccess.Interfaces;
 using DataAccess.Interfaces.Masters;
 using Models.RequestModels.Masters.Plant;
 using Models.ResponseModels.Masters.Plant;
