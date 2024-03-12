@@ -31,9 +31,5 @@ namespace DataAccess.Repositories
                 (request.Offset + request.Count).ToString();
             return response;
         }
-        public PlantEntity GetPlantMasterByCode(string plantCode)
-        {
-            return _context.PlantEntity.FirstOrDefault(p => p.PlantCode == plantCode);
-        }
     }
 }
