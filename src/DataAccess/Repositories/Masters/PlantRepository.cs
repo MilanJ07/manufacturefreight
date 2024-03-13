@@ -1,5 +1,6 @@
 ﻿using DataAccess.Domain.Masters.Plant;
 using DataAccess.Interfaces.Masters;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories.Masters
 {
@@ -18,13 +19,20 @@ namespace DataAccess.Repositories.Masters
 
         public async Task<PlantEntity?> FindAsync(decimal id)
         {
-            return _context.PlantEntity.Where(x => x.Id == id).SingleOrDefault();
+            return await _context.PlantEntity.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<PlantSearchResponseEntity> SearchPlantAsync(PlantSearchRequestEntity request)
         {
             var response = new PlantSearchResponseEntity();
-            response.Plants = _context.PlantEntity.ToList();
+            IQueryable<PlantEntity> query = _context.PlantEntity;
+
+            if (!string.IsNullOrWhiteSpace(request.PlantCode))
+            {
+                query = query.Where(t => t.PlantCode.Contains(request.PlantCode));
+            }
+
+            response.Plants = await query.Skip(request.Offset).Take(request.Count).ToListAsync();
             response.Paging.Results = response.Plants.Count();
             response.Paging.NextOffset = response.Paging.Total < request.Offset + request.Count ?
                 null :
