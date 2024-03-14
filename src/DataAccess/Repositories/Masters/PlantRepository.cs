@@ -19,13 +19,15 @@ namespace DataAccess.Repositories.Masters
 
         public async Task<PlantEntity?> FindAsync(decimal id)
         {
-            return await _context.PlantEntity.SingleOrDefaultAsync(x => x.Id == id);
+            return await _context.PlantEntity.FindAsync(id);
         }
 
         public async Task<PlantSearchResponseEntity> SearchPlantAsync(PlantSearchRequestEntity request)
         {
             var response = new PlantSearchResponseEntity();
-            IQueryable<PlantEntity> query = _context.PlantEntity;
+            var query = _context.PlantEntity.AsQueryable();
+
+            response.Paging.Total = query.AsNoTracking().Count();
 
             if (!string.IsNullOrWhiteSpace(request.PlantCode))
             {

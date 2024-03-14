@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.Interfaces.Masters;
+using BusinessLogic.Rules.Enums;
+using BusinessLogic.Rules.Master.Plant;
 using DataAccess.Domain.Masters.Plant;
 using DataAccess.Interfaces.Masters;
 using Models.RequestModels.Masters.Plant;
@@ -46,7 +48,7 @@ namespace BusinessLogic.Services.Masters
 
             PlantSearchRequestEntity? request = mapper.Map<PlantSearchRequestEntity>(requestModel);
 
-            /*var rules = new PlantSearchRules(request, offset, count);
+            var rules = new PlantSearchRules(request, offset, count);
             rules.RunRules();
             foreach (var result in rules.Results)
             {
@@ -64,7 +66,7 @@ namespace BusinessLogic.Services.Masters
             if (rules.Result == RuleResultType.Fail)
             {
                 return wrapper;
-            }*/
+            }
 
             PlantSearchResponseEntity entityResponse = await plantRepository.SearchPlantAsync(request);
             PlantSearchResponse plantSearchResponse = mapper.Map<PlantSearchResponse>(entityResponse);

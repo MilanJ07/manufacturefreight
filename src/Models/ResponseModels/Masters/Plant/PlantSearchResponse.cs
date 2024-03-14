@@ -4,6 +4,6 @@ namespace Models.ResponseModels.Masters.Plant
 {
     public class PlantSearchResponse : SearchResponseBase<PlantSearchResponseModel>
     {
-        public List<PlantSearchResponseModel> Plants => Results;
+        public List<PlantSearchResponseModel> Plants => base.Results;
     }
 }
