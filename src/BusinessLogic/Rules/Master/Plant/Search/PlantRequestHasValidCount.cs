@@ -8,13 +8,13 @@ namespace BusinessLogic.Rules.Master.Plant
     {
         public void RequestHasValidCount()
         {
-            if(!int.TryParse(this.Count, out var intCount) || intCount < 0)
+            if (!int.TryParse(this.Count, out var intCount) || intCount < 0)
             {
                 throw new RuleException(
-                    Messages.InvalidOffset.Description,
-                    Messages.InvalidOffset.Element,
+                    Messages.InvalidCount.Description,
+                    Messages.InvalidCount.Element,
                     this.Count,
-                    Codes.InvalidOffset,
+                    Codes.InvalidCount,
                     Category.Warning
                     );
             }

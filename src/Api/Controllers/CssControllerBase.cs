@@ -20,13 +20,13 @@ namespace Api.Controllers
                     {
                         statusCode = StatusCodes.Status404NotFound;
                     }
-                }
 
-                return this.StatusCode(
+                    return this.StatusCode(
                     statusCode,
                     responseWrappers.ToMessageStatus(
                         ReasonPhrases.GetReasonPhrase(statusCode),
                         statusCode.ToString()));
+                }
             }
 
             var response = responseWrappers.ToResponse(

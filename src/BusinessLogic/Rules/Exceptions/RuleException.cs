@@ -18,6 +18,7 @@ namespace BusinessLogic.Rules.Exceptions
             this.Element = element ?? string.Empty;
             this.ElementValue = value ?? string.Empty;
             this.Code = code ?? string.Empty;
+            this.Category = category;
         }
 
         protected RuleException(SerializationInfo info, StreamingContext context)
